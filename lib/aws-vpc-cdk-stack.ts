@@ -8,6 +8,7 @@ export class AwsVpcCdkStack extends cdk.Stack {
     super(scope, id, props);
 
     // The code that defines your stack goes here
+    // Level 2 constructs
     const vpc = new ec2.Vpc(this, 'MyVpc', {
       maxAzs: 2, // 2 AZs
       subnetConfiguration: [
