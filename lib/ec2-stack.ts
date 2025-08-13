@@ -26,5 +26,21 @@ export class Ec2Stack extends cdk.Stack {
         ),
     });
          cdk.Tags.of(instance).add("Name", "MyPrivateEC2");
+
+    // EC2 Instance for Database
+    const dbInstance = new ec2.Instance(this, "MyDatabaseEC2", {
+        vpc: props.vpc,
+        vpcSubnets: {
+            subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
+        },
+        machineImage: new ec2.AmazonLinuxImage({
+            generation: ec2.AmazonLinuxGeneration.AMAZON_LINUX_2
+        }),
+        instanceType: ec2.InstanceType.of(
+            ec2.InstanceClass.T3,
+            ec2.InstanceSize.MICRO
+        ),
+    });
+    cdk.Tags.of(dbInstance).add("Name", "MyDatabaseEC2");       
   }
 }
